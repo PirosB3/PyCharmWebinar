@@ -1,4 +1,4 @@
-from typing import Union, Dict, Optional, List, Set, NamedTuple, Iterator
+from typing import Union, Dict, Optional, List, Set, NamedTuple, Iterator, Sequence
 from enum import Enum
 
 import itertools
@@ -33,7 +33,7 @@ class PyCategory(object):
         result = list(self.items.get_top(1))
         return None if len(result) == 0 else result[0]
 
-    def add_todo(self, title: str, owner: Union[str, List[str]], priority: Priority = Priority.MED) -> PyTodoItem:
+    def add_todo(self, title: str, owner: Union[str, Sequence[str]], priority: Priority = Priority.MED) -> PyTodoItem:
 
         if isinstance(owner, str):
             owner = [owner]
@@ -41,7 +41,7 @@ class PyCategory(object):
         new_item = PyTodoItem(
             title=title,
             priority=priority,
-            owners=owner,
+            owners=list(owner),
             category=self.name,
         )
         self.items.add_item(new_item)
