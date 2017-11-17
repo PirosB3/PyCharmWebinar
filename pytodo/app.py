@@ -10,7 +10,7 @@ class PyCategory(object):
         self.items = PriorityLinkedList()
         self.name = name
 
-    def mark_complete(self, item) -> None:
+    def mark_complete(self, item):
         self.items.remove_item(item)
 
     @property
@@ -24,7 +24,7 @@ class PyCategory(object):
         result = list(self.items.get_top(1))
         return None if len(result) == 0 else result[0]
 
-    def add_todo(self, title, owner, priority=Priority.MED) -> PyTodoItem:
+    def add_todo(self, title, owner, priority=Priority.MED):
 
         if isinstance(owner, str):
             owner = [owner]
