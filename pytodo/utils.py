@@ -6,7 +6,7 @@ from typing import Dict, TypeVar, Generic, Iterator, cast, Optional, List
 from typing_extensions import Protocol
 
 
-PyTodoItem = namedtuple('PyTodoItem', 'title priority owners category'.split(' '))
+PyTodoItem = namedtuple('PyTodoItem', ['title', 'priority', 'owners', 'category'])
 
 
 class Priority(Enum):
