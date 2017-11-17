@@ -1,9 +1,11 @@
 import typing
 from collections import defaultdict, deque
 from enum import Enum
-from typing import Dict, TypeVar, Generic, Iterator, cast, Optional
+from typing import Dict, TypeVar, Generic, Iterator, cast, Optional, List
 
 from typing_extensions import Protocol
+
+from pytodo.app import PyTodoItem
 
 
 class Priority(Enum):
@@ -12,35 +14,47 @@ class Priority(Enum):
     HIGH = 3
 
 
-T = TypeVar('T', covariant=True)
+class PriorityLinkedList(object):
+    """A Linked List arranged by priority
 
-
-class Prioritizable(Protocol[T]):
-    priority: Priority
-
-
-class PriorityLinkedList(Generic[T]):
+    For every type of priority (HIGH, MED, LOW) create a list
+    where TodoItems are stored. Retreive the top K ordered by
+    priority and time inserted (FIFO)
+    """
 
     def __init__(self) -> None:
-        self.queues: Dict[Priority, typing.Deque[Prioritizable[T]]] = defaultdict(deque)
+        self.queues: Dict[Priority, List[PyTodoItem]] = defaultdict(list)
         self.count = 0
 
-    def add_item(self, item: Prioritizable[T]) -> None:
+    def add_item(self, item):
+        """Adds a TodoItem item in the priority Linked List
+
+        :param item: a TodoItem
+        """
         self.queues[item.priority].append(item)
         self.count += 1
 
-    def get_top(self, k: Optional[int] = None) -> Iterator[T]:
+    def get_top(self, k=None):
+        """Returns the top K results from the linked list, sorted by priority and time
+
+        :param k: an integer specifying how many items we want back, or None if we want them all
+        :return: a generator that will generate K TodoItems
+        """
         if k is None:
             to_yield = float('inf')
         else:
             to_yield = k
         for priority in [Priority.HIGH, Priority.MED, Priority.LOW]:
             for item in self.queues[priority]:
-                yield cast(T, item)
+                yield item
                 to_yield -= 1
                 if to_yield == 0:
                     break
 
-    def remove_item(self, hello_item: Prioritizable[T]) -> None:
-        self.queues[hello_item.priority].remove(hello_item)
+    def remove_item(self, item):
+        """Removes an item from the linked list
+
+        :param item: the TodoItem
+        """
+        self.queues[item.priority].remove(item)
         self.count -= 1

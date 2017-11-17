@@ -6,12 +6,12 @@ from pytodo.utils import PriorityLinkedList
 
 class PriorityLinkedListTestCase(unittest.TestCase):
 
-    def test_it_works(self) -> None:
+    def test_it_works(self):
         world_item = PyTodoItem(title="World", priority=Priority.MED, owners=[], category='')
         hello_item = PyTodoItem(title="Hello", priority=Priority.HIGH, owners=[], category='')
         sweet_item = PyTodoItem(title="Sweet", priority=Priority.HIGH, owners=[], category='')
 
-        ll: PriorityLinkedList[PyTodoItem] = PriorityLinkedList()
+        ll = PriorityLinkedList()
         ll.add_item(world_item)
         ll.add_item(hello_item)
         ll.add_item(sweet_item)
@@ -23,12 +23,12 @@ class PriorityLinkedListTestCase(unittest.TestCase):
 
 class TodoAppTestCase(unittest.TestCase):
 
-    def test_new_todo_list(self) -> None:
+    def test_new_todo_list(self):
         a_list = PyTodo()
         self.assertEqual(a_list.num_categories, 0)
         self.assertEqual(a_list.num_items, 0)
 
-    def test_get_category(self) -> None:
+    def test_get_category(self):
         a_list = PyTodo()
         category_lorem = a_list.get_category('lorem')
         category_ipsum = a_list.get_category('ipsum')
@@ -38,7 +38,7 @@ class TodoAppTestCase(unittest.TestCase):
         self.assertEqual(a_list.num_categories, 2)
         self.assertEqual(a_list.num_items, 0)
 
-    def test_add_item_to_category(self) -> None:
+    def test_add_item_to_category(self):
         a_list = PyTodo()
         first_todo = a_list.get_category("friends").add_todo("buy present for Paul Everitt", owner="Daniel",
                                                           priority=Priority.MED)
@@ -55,7 +55,7 @@ class TodoAppTestCase(unittest.TestCase):
         self.assertEqual(a_list.num_items, 0)
         self.assertEqual(a_list.authors, set())
 
-    def test_get_last_added_item(self) -> None:
+    def test_get_last_added_item(self):
         a_list = PyTodo()
         my_category = a_list.get_category("friends")
         self.assertIsNone(my_category.get_last())
@@ -65,7 +65,7 @@ class TodoAppTestCase(unittest.TestCase):
         assert last
         self.assertEqual(last.title, "hello world")
 
-    def test_get_top_k(self) -> None:
+    def test_get_top_k(self):
         a_list = PyTodo()
         a_list.get_category("home").add_todo("P3", "daniel", Priority.LOW)
         a_list.get_category("home").add_todo("P2-1", "adam", Priority.MED)
