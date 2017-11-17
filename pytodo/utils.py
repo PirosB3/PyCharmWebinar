@@ -23,8 +23,8 @@ class PriorityLinkedList(object):
     priority and time inserted (FIFO)
     """
 
-    def __init__(self):
-        self.queues = defaultdict(list)
+    def __init__(self) -> None:
+        self.queues: Dict[Priority, List[PriorityLinkedList]] = defaultdict(list)
         self.count = 0
 
     def add_item(self, item):
