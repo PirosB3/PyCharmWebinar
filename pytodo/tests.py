@@ -58,10 +58,10 @@ class TodoAppTestCase(unittest.TestCase):
     def test_get_last_added_item(self):
         a_list = PyTodo()
         my_category = a_list.get_category("friends")
-        self.assertIsNone(my_category.get_last())
+        self.assertIsNone(my_category.get_first())
 
         my_category.add_todo("hello world", owner="Daniel")
-        last = my_category.get_last()
+        last = my_category.get_first()
         assert last
         self.assertEqual(last.title, "hello world")
 
@@ -70,9 +70,9 @@ class TodoAppTestCase(unittest.TestCase):
         a_list.get_category("home").add_todo("P3", "daniel", Priority.LOW)
         a_list.get_category("home").add_todo("P2-1", "adam", Priority.MED)
         a_list.get_category("work").add_todo("P2-2", "daniel", Priority.MED)
-        a_list.get_category("leisure").add_todo("P3", "sam", Priority.HIGH)
+        a_list.get_category("leisure").add_todo("P1", "sam", Priority.HIGH)
         res = a_list.get_top(3)
-        self.assertEqual([item.title for item in res], ['P3'])
+        self.assertEqual([item.title for item in res], ['P1', 'P2-1', 'P2-2'])
 
 
 if __name__ == '__main__':

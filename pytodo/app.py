@@ -1,10 +1,7 @@
 from collections import namedtuple
 
 
-from pytodo.utils import PriorityLinkedList, Priority
-
-
-PyTodoItem = namedtuple('PyTodoItem', 'title priority owners category')
+from pytodo.utils import PriorityLinkedList, Priority, PyTodoItem
 
 
 class PyCategory(object):
@@ -27,7 +24,7 @@ class PyCategory(object):
         result = list(self.items.get_top(1))
         return None if len(result) == 0 else result[0]
 
-    def add_todo(self, title, owner, priority) -> PyTodoItem:
+    def add_todo(self, title, owner, priority=Priority.MED) -> PyTodoItem:
 
         if isinstance(owner, str):
             owner = [owner]

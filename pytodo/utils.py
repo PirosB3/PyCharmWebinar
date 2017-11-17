@@ -1,11 +1,12 @@
 import typing
-from collections import defaultdict, deque
+from collections import defaultdict, deque, namedtuple
 from enum import Enum
 from typing import Dict, TypeVar, Generic, Iterator, cast, Optional, List
 
 from typing_extensions import Protocol
 
-from pytodo.app import PyTodoItem
+
+PyTodoItem = namedtuple('PyTodoItem', 'title priority owners category'.split(' '))
 
 
 class Priority(Enum):
@@ -22,8 +23,8 @@ class PriorityLinkedList(object):
     priority and time inserted (FIFO)
     """
 
-    def __init__(self) -> None:
-        self.queues: Dict[Priority, List[PyTodoItem]] = defaultdict(list)
+    def __init__(self):
+        self.queues = defaultdict(list)
         self.count = 0
 
     def add_item(self, item):
