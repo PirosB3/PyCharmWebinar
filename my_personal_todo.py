@@ -5,8 +5,8 @@ from pytodo.utils import Priority
 
 
 ITEMS_TO_ADD = [
-    ("home", "Buy milk", "Matt", Priority.MED),
     ("home", "Clean house", ["Matt", "Jay"], Priority.LOW),
+    ("home", "Buy milk", "Matt", Priority.MED),
     ("home", "Do washing", "Daniel", Priority.LOW),
     ("work", "Check metrics", "Daniel", Priority.MED),
     ("work", "Fix server crashing", "Daniel", Priority.HIGH),
@@ -23,7 +23,7 @@ def main() -> None:
     for idx, item in enumerate(my_list.get_top(5)):
         print(f"Item #{idx}: {item.title}")
 
-    highest_priority_item = my_list.get_category("home").get_last()
+    highest_priority_item = my_list.get_category("home").get_first()
     if highest_priority_item is not None:
         print(f"Highest priority item at home is: {highest_priority_item.title}")
 

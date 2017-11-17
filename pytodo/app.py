@@ -29,7 +29,7 @@ class PyCategory(object):
             all_authors.update(item.owners)
         return all_authors
 
-    def get_last(self) -> Optional[PyTodoItem]:
+    def get_first(self) -> Optional[PyTodoItem]:
         result = list(self.items.get_top(1))
         return None if len(result) == 0 else result[0]
 
